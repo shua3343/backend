@@ -1,8 +1,9 @@
-insert into CATEGORY(description)
+insert into CATEGORY(code, description)
 values
-    ('Comportamental'),
-    ('Programação'),
-    ('Qualidade'),
-    ('Processos');
+    (1, 'Comportamental'),
+    (2, 'Programação'),
+    (3, 'Qualidade'),
+    (4, 'Processos')
+ON CONFLICT DO NOTHING;
 
 commit;
