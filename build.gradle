@@ -17,13 +17,17 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'io.projectreactor:reactor-test'
 	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("org.springframework.boot:spring-boot-starter-security:2.2.2.RELEASE")
 	testCompile group: 'junit', name: 'junit', version: '4.12'
+	compile "io.jsonwebtoken:jjwt:0.9.0"
 }
 
 test {
