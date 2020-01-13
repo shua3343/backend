@@ -1,7 +1,7 @@
 package br.com.cast.avaliacao.controller;
 
 import br.com.cast.avaliacao.exception.ResourceNotFoundException;
-import br.com.cast.avaliacao.model.CategoryModel;
+import br.com.cast.avaliacao.model.entity.Category;
 import br.com.cast.avaliacao.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,18 +21,18 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping(value = GET_ALL)
-    public List<CategoryModel> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
     }
 
     @PostMapping(CREATE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryModel createCategory(@Valid @RequestBody CategoryModel categoryModel) {
-        return categoryService.createCategory(categoryModel);
+    public Category createCategory(@Valid @RequestBody Category category) {
+        return categoryService.createCategory(category);
     }
 
     @PutMapping(UPDATE_BY_CATEGORY_ID)
-    public CategoryModel updateCategoryDescription(
+    public Category updateCategoryDescription(
             @PathVariable Long categoryId,
             @Valid @RequestBody String description
     ) throws ResourceNotFoundException {

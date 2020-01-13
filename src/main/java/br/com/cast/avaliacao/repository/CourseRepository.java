@@ -1,6 +1,6 @@
 package br.com.cast.avaliacao.repository;
 
-import br.com.cast.avaliacao.model.CourseModel;
+import br.com.cast.avaliacao.model.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CourseRepository extends JpaRepository<CourseModel, Long> {
-    List<CourseModel> findAllByOrderByIdAsc();
+public interface CourseRepository extends JpaRepository<Course, Long> {
+    List<Course> findAllByOrderByIdAsc();
 
-    List<CourseModel> findAllByCategoryId(Long categoryId);
+    List<Course> findAllByCategoryId(Long categoryId);
 
-    Optional<CourseModel> findOneByStartDateGreaterThanAndEndDateLessThan(LocalDate startDate, LocalDate endDate);
+    Optional<Course> findOneByStartDateGreaterThanAndEndDateLessThan(LocalDate startDate, LocalDate endDate);
 
-    Optional<CourseModel> findOneByStartDateLessThanAndEndDateGreaterThan(LocalDate startDate, LocalDate endDate);
+    Optional<Course> findOneByStartDateLessThanAndEndDateGreaterThan(LocalDate startDate, LocalDate endDate);
 }

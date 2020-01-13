@@ -1,7 +1,7 @@
 package br.com.cast.avaliacao.controller;
 
 import br.com.cast.avaliacao.exception.ResourceNotFoundException;
-import br.com.cast.avaliacao.model.CourseModel;
+import br.com.cast.avaliacao.model.entity.Course;
 import br.com.cast.avaliacao.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,27 +19,27 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("/get-all")
-    public List<CourseModel> getAllCourses() {
+    public List<Course> getAllCourses() {
         return courseService.getAllCourses();
     }
 
     @GetMapping("/get-all/from-category/{categoryId}")
-    public List<CourseModel> getAllCoursesByCategoryId(@PathVariable Long categoryId) {
+    public List<Course> getAllCoursesByCategoryId(@PathVariable Long categoryId) {
         return courseService.getAllCoursesByCategoryId(categoryId);
     }
 
     @GetMapping("/get-by-id/{courseId}")
-    public Optional<CourseModel> getCourseById(@PathVariable Long courseId) {
+    public Optional<Course> getCourseById(@PathVariable Long courseId) {
         return courseService.getCourseById(courseId);
     }
 
     @PostMapping("/create")
-    public CourseModel addCourse(@Valid @RequestBody CourseModel courseModel) {
-        return courseService.addCourse(courseModel);
+    public Course addCourse(@Valid @RequestBody Course course) {
+        return courseService.addCourse(course);
     }
 
     @PutMapping("/update/{courseId}")
-    public CourseModel updateCourseDescription(
+    public Course updateCourseDescription(
             @PathVariable Long courseId,
             @Valid @RequestBody String description
     ) throws ResourceNotFoundException {

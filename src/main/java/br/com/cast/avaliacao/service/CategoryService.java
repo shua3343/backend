@@ -2,7 +2,7 @@ package br.com.cast.avaliacao.service;
 
 import br.com.cast.avaliacao.exception.CategoryInUseException;
 import br.com.cast.avaliacao.exception.ResourceNotFoundException;
-import br.com.cast.avaliacao.model.CategoryModel;
+import br.com.cast.avaliacao.model.entity.Category;
 import br.com.cast.avaliacao.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +21,19 @@ public class CategoryService {
     @Autowired
     private CourseService courseService;
 
-    public List<CategoryModel> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoryRepository.findAllByOrderByIdAsc();
     }
 
-    public CategoryModel createCategory(CategoryModel categoryModel) {
-        return categoryRepository.save(categoryModel);
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
     }
 
-    public void deleteCategory(CategoryModel category) {
+    public void deleteCategory(Category category) {
         categoryRepository.delete(category);
     }
 
-    public CategoryModel updateCategoryDescription(Long categoryId, String description) {
+    public Category updateCategoryDescription(Long categoryId, String description) {
         return categoryRepository.findById(categoryId)
                 .map(category -> {
                     category.setDescription(description);

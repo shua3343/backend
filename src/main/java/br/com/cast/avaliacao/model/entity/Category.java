@@ -1,4 +1,4 @@
-package br.com.cast.avaliacao.model;
+package br.com.cast.avaliacao.model.entity;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Entity
 @Table(name = "CATEGORY")
-public class CategoryModel {
+public class Category {
     @Id
     @Column(name = "code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

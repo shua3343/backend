@@ -2,7 +2,7 @@ package br.com.cast.avaliacao.service;
 
 import br.com.cast.avaliacao.exception.InvalidDateException;
 import br.com.cast.avaliacao.exception.ResourceNotFoundException;
-import br.com.cast.avaliacao.model.CourseModel;
+import br.com.cast.avaliacao.model.entity.Course;
 import br.com.cast.avaliacao.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,47 +18,47 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public List<CourseModel> getAllCourses() {
+    public List<Course> getAllCourses() {
         return courseRepository.findAllByOrderByIdAsc();
     }
 
-    public List<CourseModel> getAllCoursesByCategoryId(Long categoryId) {
+    public List<Course> getAllCoursesByCategoryId(Long categoryId) {
         return courseRepository.findAllByCategoryId(categoryId);
     }
 
-    public Optional<CourseModel> getCourseById(Long courseId) {
+    public Optional<Course> getCourseById(Long courseId) {
         return courseRepository.findById(courseId);
     }
 
-    public CourseModel addCourse(CourseModel courseModel) {
-        if (isValidDate(courseModel)) {
-            return courseRepository.save(courseModel);
+    public Course addCourse(Course course) {
+        if (isValidDate(course)) {
+            return courseRepository.save(course);
         } else {
             throw new InvalidDateException("Existe(m) curso(s) planejado(s) dentro desse período.");
         }
     }
 
-    private boolean isValidDate(CourseModel courseModel) {
-        if (courseModel.getStartDate().isBefore(LocalDate.now())) {
+    private boolean isValidDate(Course course) {
+        if (course.getStartDate().isBefore(LocalDate.now())) {
             throw new InvalidDateException("A curso não pode começar no passado.");
         } else {
-            return periodHaveCourse(courseModel);
+            return periodHaveCourse(course);
         }
     }
 
-    private boolean periodHaveCourse(CourseModel courseModel) {
+    private boolean periodHaveCourse(Course course) {
         return !courseRepository.findOneByStartDateGreaterThanAndEndDateLessThan(
-                courseModel.getStartDate(), courseModel.getEndDate()
+                course.getStartDate(), course.getEndDate()
         ).isPresent() || !courseRepository.findOneByStartDateLessThanAndEndDateGreaterThan(
-                courseModel.getStartDate(), courseModel.getEndDate()
+                course.getStartDate(), course.getEndDate()
         ).isPresent();
     }
 
-    public void deleteCourse(CourseModel course) {
+    public void deleteCourse(Course course) {
         courseRepository.delete(course);
     }
 
-    public CourseModel updateCourseDescription(Long courseId, String description) {
+    public Course updateCourseDescription(Long courseId, String description) {
         return courseRepository
                 .findById(courseId)
                 .map(course -> {

@@ -1,6 +1,6 @@
 create table if not exists CATEGORY (
     code serial unique primary key,
-    description varchar (255) not null
+    description varchar (255) unique not null
 );
 
 create table if not exists COURSE (
