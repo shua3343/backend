@@ -4,8 +4,19 @@ import br.com.cast.avaliacao.model.entity.Category;
 import br.com.cast.avaliacao.model.entity.Course;
 import br.com.cast.avaliacao.model.request.CourseRequest;
 import br.com.cast.avaliacao.model.response.CourseResponse;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
 public class CourseConverter {
+
+    public List<CourseResponse> getCourseResponseList(List<Course> courses) {
+        return courses.stream()
+                .map(this::getCourseResponse)
+                .collect(Collectors.toList());
+    }
 
     public Course getCourse(CourseRequest courseRequest){
         Category category = new Category();
