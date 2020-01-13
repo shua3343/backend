@@ -4,6 +4,7 @@ import br.com.cast.avaliacao.converter.CourseConverter;
 import br.com.cast.avaliacao.exception.InvalidDateException;
 import br.com.cast.avaliacao.exception.ResourceNotFoundException;
 import br.com.cast.avaliacao.model.entity.Course;
+import br.com.cast.avaliacao.model.request.CourseRequest;
 import br.com.cast.avaliacao.model.response.ApiResponse;
 import br.com.cast.avaliacao.model.response.CourseResponse;
 import br.com.cast.avaliacao.repository.CourseRepository;
@@ -48,12 +49,13 @@ public class CourseService {
         }
     }
 
-    public CourseResponse updateCourseDescription(Long courseId, String description) {
+    public CourseResponse updateCourse(Long courseId, CourseRequest courseRequest) {
         return courseRepository
                 .findById(courseId)
                 .map(course -> {
-                    course.setDescription(description);
-                    return courseConverter.getCourseResponse(courseRepository.save(course));
+                    Course newCourse = courseConverter.getCourse(courseRequest);
+                    newCourse.setId(course.getId());
+                    return courseConverter.getCourseResponse(courseRepository.save(newCourse));
                 }).orElseThrow(
                         () -> notFoundException(courseId)
                 );

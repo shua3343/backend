@@ -2,6 +2,7 @@ package br.com.cast.avaliacao.controller;
 
 import br.com.cast.avaliacao.exception.ResourceNotFoundException;
 import br.com.cast.avaliacao.model.entity.Course;
+import br.com.cast.avaliacao.model.request.CourseRequest;
 import br.com.cast.avaliacao.model.response.CourseResponse;
 import br.com.cast.avaliacao.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/course")
@@ -40,11 +40,11 @@ public class CourseController {
     }
 
     @PutMapping("/update/{courseId}")
-    public CourseResponse updateCourseDescription(
+    public CourseResponse updateCourse(
             @PathVariable Long courseId,
-            @Valid @RequestBody String description
+            @Valid @RequestBody CourseRequest courseRequest
     ) throws ResourceNotFoundException {
-        return courseService.updateCourseDescription(courseId, description);
+        return courseService.updateCourse(courseId, courseRequest);
     }
 
     @DeleteMapping("/delete/{courseId}")
