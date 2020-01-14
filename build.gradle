@@ -6,6 +6,9 @@ plugins {
 }
 
 apply plugin: 'maven'
+apply plugin: 'application'
+
+mainClassName = 'br.com.cast.avaliacao.AvaliacaoApplication'
 
 group = 'br.com.cast'
 version = '0.0.1-SNAPSHOT'
@@ -13,6 +16,11 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+}
+
+jar {
+	baseName = 'gs-gradle'
+	version =  '0.1.0'
 }
 
 dependencies {
