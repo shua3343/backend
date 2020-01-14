@@ -1,6 +1,6 @@
 package br.com.cast.avaliacao.model.response;
 
-import br.com.cast.avaliacao.model.entity.Category;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,8 +12,10 @@ public class CourseResponse {
 
     private String description;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
 
     private int students;

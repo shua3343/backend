@@ -17,4 +17,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Optional<Course> findOneByStartDateGreaterThanAndEndDateLessThan(LocalDate startDate, LocalDate endDate);
 
     Optional<Course> findOneByStartDateLessThanAndEndDateGreaterThan(LocalDate startDate, LocalDate endDate);
+
+    Optional<Course> findOneByStartDateEqualsAndEndDateEquals(LocalDate startDate, LocalDate endDate);
 }

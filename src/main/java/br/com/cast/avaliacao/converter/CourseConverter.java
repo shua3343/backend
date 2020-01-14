@@ -23,6 +23,7 @@ public class CourseConverter {
         category.setId(courseRequest.getCategoryId());
 
         Course course = new Course();
+        course.setId(courseRequest.getId());
         course.setDescription(courseRequest.getDescription());
         course.setStartDate(courseRequest.getStartDate());
         course.setEndDate(courseRequest.getEndDate());
@@ -35,6 +36,7 @@ public class CourseConverter {
     public CourseResponse getCourseResponse(Course course) {
         CourseResponse courseResponse = new CourseResponse();
 
+        courseResponse.setId(course.getId());
         courseResponse.setDescription(course.getDescription());
         courseResponse.setStartDate(course.getStartDate());
         courseResponse.setEndDate(course.getEndDate());

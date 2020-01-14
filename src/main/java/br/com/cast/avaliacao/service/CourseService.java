@@ -41,8 +41,9 @@ public class CourseService {
                 );
     }
 
-    public CourseResponse addCourse(Course course) {
-        if (isValidDate(course)) {
+    public CourseResponse addCourse(CourseRequest courseRequest) {
+        if (isValidDate(courseRequest)) {
+            Course course = courseConverter.getCourse(courseRequest);
             return courseConverter.getCourseResponse(courseRepository.save(course));
         } else {
             throw new InvalidDateException("Existe(m) curso(s) planejado(s) dentro desse período.");
@@ -75,7 +76,7 @@ public class CourseService {
         courseRepository.delete(course);
     }
 
-    private boolean isValidDate(Course course) {
+    private boolean isValidDate(CourseRequest course) {
         if (course.getStartDate().isBefore(LocalDate.now())) {
             throw new InvalidDateException("A curso não pode começar no passado.");
         } else {
@@ -83,12 +84,10 @@ public class CourseService {
         }
     }
 
-    private boolean periodHaveCourse(Course course) {
-        return !courseRepository.findOneByStartDateGreaterThanAndEndDateLessThan(
-                course.getStartDate(), course.getEndDate()
-        ).isPresent() || !courseRepository.findOneByStartDateLessThanAndEndDateGreaterThan(
-                course.getStartDate(), course.getEndDate()
-        ).isPresent();
+    private boolean periodHaveCourse(CourseRequest course) {
+        return !courseRepository.findOneByStartDateGreaterThanAndEndDateLessThan(course.getStartDate(), course.getEndDate()).isPresent() &&
+                !courseRepository.findOneByStartDateLessThanAndEndDateGreaterThan(course.getStartDate(), course.getEndDate()).isPresent() &&
+                !courseRepository.findOneByStartDateEqualsAndEndDateEquals(course.getStartDate(), course.getEndDate()).isPresent();
     }
 
     private ResourceNotFoundException notFoundException(Long id) {

@@ -1,5 +1,6 @@
 package br.com.cast.avaliacao.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 public class Course {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
